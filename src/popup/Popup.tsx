@@ -8,10 +8,8 @@ const Popup = () => {
   }, []);
 
   return (
-    // <div className="popupComponent">
-    //   <header className="popupHeader">
-    <div>
-      <header>
+    <div className="popupComponent">
+      <header className="popupHeader">
         <a>
           <button
             onClick={() => {

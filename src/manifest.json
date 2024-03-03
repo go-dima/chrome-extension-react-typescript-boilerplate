@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "action": {
     "default_icon": "icon16.png",
-    "default_popup": "popup.html"
+    "default_popup": "js/popup.html"
   },
   "content_scripts": [
     {
@@ -16,7 +16,7 @@
     }
   ],
   "background": {
-    "servive_worker": "js/eventPage.bundle.js"
+    "service_worker": "js/eventPage.bundle.js"
   },
   "icons": {
     "16": "icon16.png",
