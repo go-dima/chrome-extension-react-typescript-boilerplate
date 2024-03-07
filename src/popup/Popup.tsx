@@ -1,10 +1,14 @@
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Popup.css";
+import React from "react";
 
 const Popup = () => {
+  const [data, setData] = useState("");
   useEffect(() => {
     // Example of how to send a message to eventPage.ts.
-    chrome.runtime.sendMessage({ popupMounted: true });
+    chrome.runtime.sendMessage({ popupMounted: true }, (response) => {
+      setData(response.data);
+    });
   }, []);
 
   return (
@@ -14,12 +18,13 @@ const Popup = () => {
           <button
             onClick={() => {
               chrome.tabs.create({
-                url: "https://app.kodemsecurity.com",
+                url: "https://google.com",
               });
             }}>
-            Open Kodem
+            Open Google
           </button>
         </a>
+        <p>{data}</p>
       </header>
     </div>
   );

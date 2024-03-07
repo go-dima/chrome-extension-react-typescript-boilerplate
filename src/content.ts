@@ -4,7 +4,7 @@ console.log("Must reload extension for modifications to take effect.");
 // this code will be executed after page load
 console.log("Function works");
 
-const fetchData = async () => {
+const changeTitle = async () => {
   const url = new URL(window.location.href);
   const pathParts = url.pathname
     .split("/")
@@ -47,7 +47,17 @@ const fetchData = async () => {
 // check that the href matches jenkins.*.dev
 const hrefRegex = /jenkins\..*\.dev/;
 if (hrefRegex.test(window.location.href)) {
-  fetchData();
+  changeTitle();
+  chrome.runtime.sendMessage({ contentMounted: true }, (response) => {
+    if (!chrome.runtime.lastError) {
+      console.log("Content script received response", response.farewell);
+    } else {
+      console.log(
+        "Content script received error",
+        chrome.runtime.lastError.message
+      );
+    }
+  });
 } else {
   console.log("Not on a Jenkins page");
 }
