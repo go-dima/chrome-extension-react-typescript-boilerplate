@@ -58,6 +58,18 @@ if (hrefRegex.test(window.location.href)) {
       );
     }
   });
-} else {
-  console.log("Not on a Jenkins page");
 }
+
+// Sample for long-lived connections
+let port = chrome.runtime.connect({ name: "contentScript" });
+port.postMessage({ portMounted: true });
+port.onMessage.addListener((response) => {
+  console.log("Content script received response", response.farewell);
+  console.log("Content script received data", response.data);
+  let targetElement = document.getElementById("repository-container-header");
+  if (targetElement) {
+    let newParagraph = document.createElement("p");
+    newParagraph.textContent = "This is the added data: " + response.data;
+    targetElement.insertAdjacentElement("afterend", newParagraph);
+  }
+});
